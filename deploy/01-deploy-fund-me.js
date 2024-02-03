@@ -15,16 +15,19 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   } else {
     ethUsdPriceFeedAddress = networkConfig[chainId]["ethUsdPriceFeed"]
   }
-const arg = [ethUsdPriceFeedAddress]
+const args = [ethUsdPriceFeedAddress]
   const fundMe = await deploy("FundMe", {
     from: deployer,
-    args: arg,
+    args: args,
     log: true,
-    waitConfirmations: network.config.blockConfirmations || 1,
+    // waitConfirmations: network.config.blockConfirmations || 1,
   })
-  if (!developmentChains.includes(network.name) && process.env.ETHERSCAN_AOI_KEY
+
+  if (
+    !developmentChains.includes(network.name) && 
+     process.env.ETHERSCAN_API_KEY
   ) {
-    await veryify(fundMe.address,)
+    await verify(fundMe.address, args)
   }
 
   log("---------------------")
