@@ -1,6 +1,7 @@
 const { networkConfig, developmentChains } = require("../helper-hardhat-config")
 const { network } = require("hardhat")
 const { verify } = require("../utils/verify")
+require("dotenv").config();
 
 module.exports = async ({ getNamedAccounts, deployments }) => {
   const { deploy, log } = deployments
@@ -20,7 +21,7 @@ const args = [ethUsdPriceFeedAddress]
     from: deployer,
     args: args,
     log: true,
-    // waitConfirmations: network.config.blockConfirmations || 1,
+    waitConfirmations: network.config.blockConfirmations || 1,
   })
 
   if (
