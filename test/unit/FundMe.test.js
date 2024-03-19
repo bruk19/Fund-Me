@@ -18,5 +18,9 @@ describe("FundMe", async function () {
     })
   })
 
- 
+  describe("fund", async function () {
+    it("Fails if you don't send enough ETH", async function () {
+      await expect(fundMe.fund()).to.be.revertedWith("you need to spend more ETH!")
+    })
+  })
 })
